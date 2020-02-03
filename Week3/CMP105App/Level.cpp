@@ -6,7 +6,9 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 
 	// initialise game objects
-
+	ball.setFillColor(sf::Color::Red);
+	ball.setRadius(50);
+	ball.setPosition(100, 100);
 }
 
 Level::~Level()
@@ -30,7 +32,7 @@ void Level::update(float dt)
 void Level::render()
 {
 	beginDraw();
-
+	window->draw(ball);
 	endDraw();
 }
 
