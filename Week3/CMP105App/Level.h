@@ -24,6 +24,10 @@ private:
 	sf::RenderWindow* window;
 
 	sf::CircleShape ball;
+	float speed;
+	bool right;
+	bool bottom;
+	sf::Vector2u bounds;
 
 	Input* input;
 };

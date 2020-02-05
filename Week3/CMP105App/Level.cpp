@@ -9,6 +9,10 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	ball.setFillColor(sf::Color::Red);
 	ball.setRadius(50);
 	ball.setPosition(100, 100);
+	speed = 10000;
+	right = false;
+	bottom = false;
+
 }
 
 Level::~Level()
@@ -24,8 +28,35 @@ void Level::handleInput(float dt)
 
 // Update game objects
 void Level::update(float dt)
-{
-	
+{	
+	bounds = window->getSize();
+	if (ball.getPosition().x > bounds.x - 100) {
+		right = true;
+	}
+	else if (ball.getPosition().x < 0) {
+		right = false;
+	}
+
+	if (ball.getPosition().y > bounds.y - 100) {
+		bottom = true;
+	}
+	else if (ball.getPosition().y < 0) {
+		bottom = false;
+	}
+
+	if (right == false) {
+		ball.move(speed * dt, 0);
+	}
+	else {
+		ball.move(-speed * dt, 0);
+	}
+
+	if (bottom == false) {
+		ball.move(0, speed * dt);
+	}
+	else {
+		ball.move(0, -speed * dt);
+	}
 }
 
 // Render level
