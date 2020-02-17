@@ -4,12 +4,19 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 {
 	window = hwnd;
 	input = in;
+	bounds = window->getSize();
 
 	// initialise game objects
 	ball.setFillColor(sf::Color::Red);
 	ball.setRadius(50);
 	ball.setPosition(100, 100);
-	speed = 10000;
+	player.setFillColor(sf::Color::Blue);
+	player.setOutlineColor(sf::Color::Black);
+	player.setOutlineThickness(-2);
+	player.setSize(sf::Vector2f(30, 30));
+	player.setPosition(bounds.x/2, bounds.y/2);
+
+	speed = 1000;
 	right = false;
 	bottom = false;
 
@@ -23,7 +30,25 @@ Level::~Level()
 // handle user input
 void Level::handleInput(float dt)
 {
+	if (input->isKeyDown(sf::Keyboard::W) && (player.getPosition().y > 0)) {
+		//input->setKeyUp(sf::Keyboard::W);
+		player.move(0, -speed*dt);
+	}
 
+	if (input->isKeyDown(sf::Keyboard::A) && ( player.getPosition().x > 0)) {
+		//input->setKeyUp(sf::Keyboard::A);
+		player.move(-speed*dt, 0);
+	}
+
+	if (input->isKeyDown(sf::Keyboard::S) && (player.getPosition().y < bounds.y - 30)) {
+		//input->setKeyUp(sf::Keyboard::S);
+		player.move(0, speed * dt);
+	}
+
+	if (input->isKeyDown(sf::Keyboard::D) && (player.getPosition().x < bounds.x - 30)) {
+		//input->setKeyUp(sf::Keyboard::D);
+		player.move(speed * dt, 0);
+	}
 }
 
 // Update game objects
@@ -64,6 +89,7 @@ void Level::render()
 {
 	beginDraw();
 	window->draw(ball);
+	window->draw(player);
 	endDraw();
 }
 

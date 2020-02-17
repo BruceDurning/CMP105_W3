@@ -24,6 +24,7 @@ private:
 	sf::RenderWindow* window;
 
 	sf::CircleShape ball;
+	sf::RectangleShape player;
 	float speed;
 	bool right;
 	bool bottom;
